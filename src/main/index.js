@@ -90,6 +90,7 @@ app.whenReady().then(() => {
 
   // IPC test (ignore this)
   ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('new', () => console.log('new quote!'))
 
   createWindow()
   createTray()
