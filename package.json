@@ -23,6 +23,7 @@
     "@tailwindcss/vite": "^4.3.0",
     "better-sqlite3": "^12.10.0",
     "electron-updater": "^6.3.9",
+    "react-router": "^7.16.0",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {

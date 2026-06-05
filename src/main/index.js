@@ -125,22 +125,28 @@ app.whenReady().then(() => {
 // code. You can also put them in separate files and require them here.
 
 // --
-function sendNotification() {
-  new Notification({
-    title: 'Hello!',
-    body: 'This was sent without opening the app.',
+function sendNotification(quote) {
+  const notification = new Notification({
+    title: quote.title,
+    body: quote.body,
     icon
-  }).show()
+  })
+
+  notification.on('click', () => {
+    if (mainWindow) {
+      mainWindow.show()
+      mainWindow.focus()
+    }
+
+    mainWindow.webContents.send('notification-clicked', quote)
+  })
+
+  notification.show()
 }
 
 function startNotificationScheduler() {
-  // Example: send a notification every 10 seconds
   setInterval(() => {
-    const quote = db.getRandomQuote()
-    new Notification({
-      title: quote.title,
-      body: quote.body,
-      icon
-    }).show()
+    const quote = db.db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
+    sendNotification(quote)
   }, 5_000)
 }
