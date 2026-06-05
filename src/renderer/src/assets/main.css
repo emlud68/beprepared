@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-display: swap;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/jost-v20-latin-regular.woff2) format('woff2');
+}
+
+@theme {
+  --font-sans: 'Jost', sans-serif;
+}
