@@ -1,29 +1,43 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import QuoteForm from './components/quote-form.component'
+import DeleteQuoteForm from './components/delete-quote-form.component'
+import QuoteList from './components/quote-list.component'
 
 function App() {
-  const [newQuote, setNewQuote] = useState('')
+  const [quoteList, setQuoteList] = useState([])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    window.electron.ipcRenderer.send('new')
+  useEffect(() => {
+    window.electron.ipcRenderer.invoke('get-quotes').then(setQuoteList)
+
+    window.electron.ipcRenderer.on('update-quotes', (_, updated) => {
+      setQuoteList(updated)
+    })
+
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners('update-quotes')
+    }
+  }, [])
+
+  const handleCreate = (quote) => {
+    window.electron.ipcRenderer.invoke('new-quote', quote)
   }
+
+  const handleDelete = (id) => {
+    window.electron.ipcRenderer.invoke('delete-quote', id)
+  }
+
+  console.log(quoteList)
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="min-w-full">
-          <div className="text-center">hello world</div>
-          <textarea
-            name="quote"
-            id="quote"
-            value={newQuote}
-            onChange={(e) => setNewQuote(e.target.value)}
-          ></textarea>
-          <button className="hover:cursor-pointer" type="submit" onClick={handleSubmit}>
-            Create
-          </button>
+      <div className="flex flex-col items-center justify-center">
+        <div className="min-w-full flex">
+          <QuoteForm onCreate={handleCreate}></QuoteForm>
+          <DeleteQuoteForm onDelete={handleDelete}></DeleteQuoteForm>
         </div>
-        <div className="min-w-full h-28 bg-amber-400"></div>
+        <div className="min-w-full bg-amber-400">
+          <QuoteList quoteList={quoteList}></QuoteList>
+        </div>
       </div>
     </>
   )

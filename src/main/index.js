@@ -46,6 +46,9 @@ function createWindow() {
   })
 }
 
+//Database imports
+import * as db from './db'
+
 function createTray() {
   // Create system tray icon
   tray = new Tray(icon)
@@ -88,9 +91,26 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test (ignore this)
-  ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.on('new', () => console.log('new quote!'))
+  function updateQuotes() {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      const quotes = db.getAllQuotes()
+      mainWindow.webContents.send('update-quotes', quotes)
+    }
+  }
+
+  ipcMain.handle('get-quotes', () => {
+    const quotes = db.getAllQuotes()
+    console.log('get-quotes result:', quotes) // ← check this in terminal
+    return quotes
+  })
+  ipcMain.handle('new-quote', (_, quote) => {
+    db.createQuote(quote.title, quote.body, quote.tag)
+    updateQuotes()
+  })
+  ipcMain.handle('delete-quote', (_, id) => {
+    db.deleteQuote(id)
+    updateQuotes()
+  })
 
   createWindow()
   createTray()
@@ -103,7 +123,6 @@ app.whenReady().then(() => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-import db from './db'
 
 // --
 function sendNotification() {
@@ -117,10 +136,11 @@ function sendNotification() {
 function startNotificationScheduler() {
   // Example: send a notification every 10 seconds
   setInterval(() => {
+    const quote = db.getRandomQuote()
     new Notification({
-      title: 'Scheduled Reminder',
-      body: `It's ${new Date().toLocaleTimeString()}`,
+      title: quote.title,
+      body: quote.body,
       icon
     }).show()
-  }, 10_000)
+  }, 5_000)
 }
