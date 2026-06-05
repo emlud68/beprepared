@@ -49,6 +49,9 @@ function createWindow() {
 //Database imports
 import * as db from './db'
 
+//Electron Store imports
+import { setTimerPreference, getTimerPreference } from './user-settings'
+
 function createTray() {
   // Create system tray icon
   tray = new Tray(icon)
@@ -111,6 +114,8 @@ app.whenReady().then(() => {
     db.deleteQuote(id)
     updateQuotes()
   })
+  ipcMain.on('set-timer-preference', setTimerPreference)
+  ipcMain.handle('get-timer-preference', getTimerPreference)
 
   createWindow()
   createTray()

@@ -1,7 +1,12 @@
-import Store from 'electron-store'
+import __Store from 'electron-store'
 
-const userSettings = Store()
+//https://github.com/sindresorhus/electron-store/issues/289
+const userSettings = __Store.default || __Store
 
 export const setTimerPreference = (p) => {
   userSettings.set('timer', p)
+}
+
+export const getTimerPreference = () => {
+  return userSettings.get('timer')
 }
