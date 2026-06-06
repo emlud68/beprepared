@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Description, Field, Label, Select } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import clsx from 'clsx'
 import logo from '../assets/logo.png'
 
 const timers = {
@@ -35,12 +38,36 @@ const Preferences = () => {
         <h1 className="text-5xl font-sans">Be Prepared</h1>
       </div>
       <div>
-        <label htmlFor="timerSelect"></label>
-        <select name="timerSelect" id="timerSelect" value={timerSelected} onChange={handleChange}>
-          <option value="ten">10 Minutes</option>
-          <option value="thirty">30 Minutes</option>
-          <option value="hour">1 Hour</option>
-        </select>
+        <Field>
+          <Label className="text-sm/6 font-medium text-black">Project status</Label>
+          <Description className="text-sm/6 text-black/50">
+            This will be visible to clients on the project.
+          </Description>
+          <div className="relative">
+            <Select
+              name="timerSelect"
+              id="timerSelect"
+              value={timerSelected}
+              onChange={handleChange}
+              className={clsx(
+                'mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 px-3 py-1.5 text-sm/6 text-black',
+                'focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25',
+                // Make the text of each option black on Windows
+                '*:text-black'
+              )}
+            >
+              <option className="p-8" value="ten">
+                10 Minutes
+              </option>
+              <option value="thirty">30 Minutes</option>
+              <option value="hour">1 Hour</option>
+            </Select>
+            <ChevronDownIcon
+              className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-black/60"
+              aria-hidden="true"
+            />
+          </div>
+        </Field>
       </div>
     </div>
   )
