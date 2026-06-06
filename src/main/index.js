@@ -114,7 +114,7 @@ app.whenReady().then(() => {
     db.deleteQuote(id)
     updateQuotes()
   })
-  ipcMain.on('set-timer-preference', setTimerPreference)
+  ipcMain.on('set-timer-preference', (_, p) => setTimerPreference(p))
   ipcMain.handle('get-timer-preference', getTimerPreference)
 
   createWindow()

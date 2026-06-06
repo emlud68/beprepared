@@ -1,12 +1,19 @@
-import __Store from 'electron-store'
+import { Conf } from 'electron-conf/main'
 
-//https://github.com/sindresorhus/electron-store/issues/289
-const userSettings = __Store.default || __Store
+const userSettings = new Conf()
 
-export const setTimerPreference = (p) => {
+const getTimerPreference = () => {
+  return userSettings.get('timer', false)
+}
+
+const setTimerPreference = (p) => {
   userSettings.set('timer', p)
 }
 
-export const getTimerPreference = () => {
-  return userSettings.get('timer')
+//Set default value if no user settings were yet set
+// userSettings.clear()
+if (!getTimerPreference) {
+  setTimerPreference(10 * 60000) //10 min in ms
 }
+
+export { userSettings, setTimerPreference, getTimerPreference }

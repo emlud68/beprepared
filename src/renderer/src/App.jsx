@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router'
 import Home from './routes/home.component'
+import Preferences from './routes/preferences.component'
 import EditQuotes from './components/edit-quotes/edit-quotes.component'
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={<EditQuotes />} />
+          <Route index element={<Preferences />} />
         </Route>
       </Routes>
     </>
