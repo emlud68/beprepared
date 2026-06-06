@@ -114,12 +114,15 @@ app.whenReady().then(() => {
     db.deleteQuote(id)
     updateQuotes()
   })
-  ipcMain.on('set-timer-preference', (_, p) => setTimerPreference(p))
+  ipcMain.on('set-timer-preference', (_, p) => {
+    setTimerPreference(p)
+    initiateNotificationScheduler()
+  })
   ipcMain.handle('get-timer-preference', getTimerPreference)
 
   createWindow()
   createTray()
-  startNotificationScheduler()
+  initiateNotificationScheduler()
 
   app.on('activate', () => {
     mainWindow.show()
@@ -149,9 +152,28 @@ function sendNotification(quote) {
   notification.show()
 }
 
-function startNotificationScheduler() {
-  setInterval(() => {
+let interval
+
+function startNotificationScheduler(timer) {
+  interval = setInterval(() => {
     const quote = db.db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
     sendNotification(quote)
-  }, 5_000)
+  }, timer)
+}
+
+function stopNotificationScheduler() {
+  clearInterval(interval)
+}
+
+function initiateNotificationScheduler() {
+  if (interval) {
+    stopNotificationScheduler()
+  }
+  let timer = getTimerPreference()
+  if (!timer) {
+    timer = 600000 // in case, default to 10 min
+    setTimerPreference(600000)
+  }
+  console.log(timer)
+  startNotificationScheduler(timer)
 }
