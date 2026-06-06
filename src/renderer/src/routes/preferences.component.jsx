@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import logo from '../assets/logo.png'
 
 const timers = {
   ten: 10,
@@ -27,6 +28,12 @@ const Preferences = () => {
   }
   return (
     <div>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-20">
+        <div className="max-w-[calc(100vh_/_3)]">
+          <img src={logo} alt="logo" />
+        </div>
+        <h1 className="text-5xl font-sans">Be Prepared</h1>
+      </div>
       <div>
         <label htmlFor="timerSelect"></label>
         <select name="timerSelect" id="timerSelect" value={timerSelected} onChange={handleChange}>

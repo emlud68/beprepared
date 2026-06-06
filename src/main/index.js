@@ -174,6 +174,5 @@ function initiateNotificationScheduler() {
     timer = 600000 // in case, default to 10 min
     setTimerPreference(600000)
   }
-  console.log(timer)
   startNotificationScheduler(timer)
 }
