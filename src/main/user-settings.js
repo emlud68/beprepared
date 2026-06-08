@@ -10,10 +10,29 @@ const setTimerPreference = (p) => {
   userSettings.set('timer', p)
 }
 
-//Set default value if no user settings were yet set
-// userSettings.clear()
-if (!getTimerPreference) {
-  setTimerPreference(10 * 60000) //10 min in ms
+const getFilterPreference = () => {
+  return userSettings.get('filter', false)
 }
 
-export { userSettings, setTimerPreference, getTimerPreference }
+const setFilterPreference = (c, p) => {
+  userSettings.set(`filter.${c}`, p)
+}
+
+//Set default value if no user settings were yet set
+if (!getTimerPreference()) {
+  setTimerPreference(10 * 60000) //10 min in ms
+}
+if (!getFilterPreference()) {
+  setFilterPreference('mary', true)
+  setFilterPreference('literature', true)
+  setFilterPreference('gospel', true)
+  setFilterPreference('your', true)
+}
+
+export {
+  userSettings,
+  setTimerPreference,
+  getTimerPreference,
+  setFilterPreference,
+  getFilterPreference
+}

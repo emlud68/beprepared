@@ -1,5 +1,6 @@
 import logo from '../assets/logo.png'
 import TimerPreference from '../components/timer-preference/timer-preference.component'
+import FilterPreference from '../components/filter-preference/filter-preference.component'
 
 const Preferences = () => {
   return (
@@ -14,7 +15,9 @@ const Preferences = () => {
         <div className="w-1/2">
           <TimerPreference />
         </div>
-        <div className="w-1/2"></div>
+        <div className="w-1/2">
+          <FilterPreference />
+        </div>
       </div>
     </div>
   )

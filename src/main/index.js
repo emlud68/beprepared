@@ -50,7 +50,12 @@ function createWindow() {
 import * as db from './db'
 
 //Electron Store imports
-import { setTimerPreference, getTimerPreference } from './user-settings'
+import {
+  setTimerPreference,
+  getTimerPreference,
+  setFilterPreference,
+  getFilterPreference
+} from './user-settings'
 
 function createTray() {
   // Create system tray icon
@@ -119,6 +124,11 @@ app.whenReady().then(() => {
     initiateNotificationScheduler()
   })
   ipcMain.handle('get-timer-preference', getTimerPreference)
+  ipcMain.on('set-filter-preference', (_, c, p) => {
+    setFilterPreference(c, p)
+    console.log(c, p)
+  })
+  ipcMain.handle('get-filter-preference', getFilterPreference)
 
   createWindow()
   createTray()
