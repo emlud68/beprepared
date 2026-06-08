@@ -3,9 +3,8 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import { TrashIcon } from '@heroicons/react/20/solid'
 
-const UserQuote = ({ title, body }) => {
+const UserQuote = ({ id, title, body, onDelete }) => {
   const [isHovered, setIsHovered] = useState(false)
-  console.log(isHovered)
   return (
     <li
       onMouseEnter={() => setIsHovered(true)}
@@ -15,7 +14,11 @@ const UserQuote = ({ title, body }) => {
       <h2 className="font-semibold text-2xl mb-2 font-serif">{title}</h2>
       <p className="text-base/8 mb-2">{body}</p>
       <TrashIcon
-        className={clsx('size-8 absolute top-5 right-6', isHovered ? 'block' : 'hidden')}
+        onClick={() => onDelete(id)}
+        className={clsx(
+          'size-6 absolute top-5 right-4',
+          isHovered ? 'block cursor-pointer' : 'hidden'
+        )}
       />
     </li>
   )
