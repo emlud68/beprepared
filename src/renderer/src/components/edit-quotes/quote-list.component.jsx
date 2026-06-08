@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types */
+import UserQuote from './user-quote.component'
+
 const QuoteList = ({ quoteList }) => {
   const quotes = quoteList.map((quote) => (
-    <li key={quote.id}>
-      <h2 className="font-semibold mb-2">{quote.title}</h2>
-      <p className="text-base mb-2">{quote.body}</p>
-      <div className="text-sm mb-2">{quote.tag}</div>
-      <div className="text-sm">quote id: {quote.id}</div>
-    </li>
+    <UserQuote key={quote.id} title={quote.title} body={quote.body} />
   ))
 
   return (

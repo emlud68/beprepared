@@ -33,9 +33,8 @@ function EditQuotes() {
       <div className="flex flex-col items-center justify-center">
         <div className="min-w-full flex">
           <QuoteForm onCreate={handleCreate}></QuoteForm>
-          <DeleteQuoteForm onDelete={handleDelete}></DeleteQuoteForm>
         </div>
-        <div className="min-w-full bg-amber-400">
+        <div className="min-w-full">
           <QuoteList quoteList={quoteList}></QuoteList>
         </div>
       </div>
