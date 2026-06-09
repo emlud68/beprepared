@@ -116,6 +116,10 @@ app.whenReady().then(() => {
     const quote = db.getQuoteFromId(id)
     return quote
   })
+  ipcMain.on('generate-random-quote', () => {
+    const quote = db.getRandomQuote()
+    mainWindow.webContents.send('notification-clicked', quote)
+  })
   ipcMain.handle('new-quote', (_, quote) => {
     db.createQuote(quote.title, quote.body, quote.tag)
     updateQuotes()

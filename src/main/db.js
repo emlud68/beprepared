@@ -34,6 +34,12 @@ const getAllQuotes = () => {
   return db.prepare('SELECT * FROM quotes').all()
 }
 
+const getRandomQuote = () => {
+  setTimeout(() => {
+    return db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
+  }, 0)
+}
+
 const createQuote = (title, body, tag) => {
   db.prepare('INSERT INTO quotes (title, body, tag) VALUES (?, ?, ?)').run(title, body, tag)
 }
@@ -42,4 +48,12 @@ const deleteQuote = (id) => {
   db.prepare('DELETE FROM quotes WHERE id = ?').run(id)
 }
 
-export { db, getQuoteFromTag, getQuoteFromId, createQuote, getAllQuotes, deleteQuote }
+export {
+  db,
+  getQuoteFromTag,
+  getQuoteFromId,
+  createQuote,
+  getAllQuotes,
+  deleteQuote,
+  getRandomQuote
+}
