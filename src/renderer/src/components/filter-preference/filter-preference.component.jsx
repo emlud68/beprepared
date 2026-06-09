@@ -57,7 +57,7 @@ const FilterPreference = () => {
         </Switch>
       </Field>
       <Field className="inline-flex items-center justify-start gap-4 mt-4">
-        <Label>Liturature Quotes</Label>
+        <Label>Literature Quotes</Label>
         <Switch
           checked={literatureQuotes}
           onChange={() => handleChange('literature')}
@@ -70,7 +70,7 @@ const FilterPreference = () => {
         </Switch>
       </Field>
       <Field className="inline-flex items-center justify-start gap-4 mt-4">
-        <Label>gospelQuotes</Label>
+        <Label>Gospel Quotes</Label>
         <Switch
           checked={gospelQuotes}
           onChange={() => handleChange('gospel')}

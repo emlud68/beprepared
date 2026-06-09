@@ -7,9 +7,14 @@ const Preferences = () => {
     <div>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-20 mb-20">
         <div className="max-w-[calc(100vh_/_3)]">
-          <img src={logo} alt="logo" />
+          <img
+            className="select-none pointer-events-none"
+            draggable="false"
+            src={logo}
+            alt="logo"
+          />
         </div>
-        <h1 className="text-3xl sm:text-5xl font-sans">Be Prepared</h1>
+        <h1 className="text-3xl sm:text-5xl font-sans select-none">Be Prepared</h1>
       </div>
       <div>
         <div className="flex sm:flex-row flex-col items-center sm:justify-center gap-20">

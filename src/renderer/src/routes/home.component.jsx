@@ -11,7 +11,7 @@ function Home() {
           <NavbarLink to="yourquotes" />
         </nav>
       </div>
-      <div className="col-start-2 col-end-3 row-start-3 row-end-4 overflow-auto pt-8 pb-8 scrollbar-auto scrollbar-thumb-blue-800/40 hover:scrollbar-thumb-blue-800/30">
+      <div className="col-start-2 col-end-3 row-start-3 row-end-4 overflow-auto pt-8 pb-8 scrollbar-auto [&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-thumb]:bg-indigo-200">
         <Outlet />
       </div>
     </div>
