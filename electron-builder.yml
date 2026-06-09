@@ -10,6 +10,9 @@ files:
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
   - resources/**
+extraResources:
+  - from: resources/seed.db
+    to: seed.db
 win:
   executableName: beprepared
 nsis:

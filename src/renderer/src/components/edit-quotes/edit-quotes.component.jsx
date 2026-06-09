@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import QuoteForm from './quote-form.component'
-import DeleteQuoteForm from './delete-quote-form.component'
 import QuoteList from './quote-list.component'
 
 function EditQuotes() {
@@ -20,10 +19,6 @@ function EditQuotes() {
 
   const handleCreate = (quote) => {
     window.electron.ipcRenderer.invoke('new-quote', quote)
-  }
-
-  const handleDelete = (id) => {
-    window.electron.ipcRenderer.invoke('delete-quote', id)
   }
 
   console.log(quoteList)

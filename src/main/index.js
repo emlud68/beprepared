@@ -108,7 +108,6 @@ app.whenReady().then(() => {
 
   ipcMain.handle('get-quotes', () => {
     const quotes = db.getAllQuotes()
-    console.log('get-quotes result:', quotes) // ← check this in terminal
     return quotes
   })
   ipcMain.handle('get-quote', (_, id) => {
@@ -130,7 +129,6 @@ app.whenReady().then(() => {
   ipcMain.handle('get-timer-preference', getTimerPreference)
   ipcMain.on('set-filter-preference', (_, c, p) => {
     setFilterPreference(c, p)
-    console.log(c, p)
   })
   ipcMain.handle('get-filter-preference', getFilterPreference)
 

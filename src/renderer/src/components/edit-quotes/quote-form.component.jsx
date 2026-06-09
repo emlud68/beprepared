@@ -52,7 +52,7 @@ const QuoteForm = ({ onCreate }) => {
           <Label className="text-md/6 font-medium text-black">Quote</Label>
           <Textarea
             placeholder="Quote"
-            maxLength="1000"
+            maxLength="2000"
             value={body}
             onChange={(e) => setBody(e.target.value)}
             className={clsx(
