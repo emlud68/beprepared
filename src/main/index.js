@@ -111,6 +111,10 @@ app.whenReady().then(() => {
     console.log('get-quotes result:', quotes) // ← check this in terminal
     return quotes
   })
+  ipcMain.handle('get-quote', (_, id) => {
+    const quote = db.getQuoteFromId(id)
+    return quote
+  })
   ipcMain.handle('new-quote', (_, quote) => {
     db.createQuote(quote.title, quote.body, quote.tag)
     updateQuotes()
@@ -167,6 +171,7 @@ let interval
 function startNotificationScheduler(timer) {
   interval = setInterval(() => {
     const quote = db.db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
+    mainWindow.webContents.send('notification-clicked', quote)
     sendNotification(quote)
   }, timer)
 }

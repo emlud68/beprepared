@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import UserQuote from './user-quote.component'
 import ReactModal from 'react-modal'
 import { Button, Field, Label, Description } from '@headlessui/react'
@@ -8,6 +9,13 @@ let userQuoteId
 
 const QuoteList = ({ quoteList }) => {
   const [openModal, setOpenModal] = useState(false)
+
+  let navigate = useNavigate()
+  const handleOpen = (id) => {
+    window.electron.ipcRenderer.invoke('get-quote', id).then((quote) => {
+      navigate('/quote', { state: { quote } })
+    })
+  }
 
   const showModal = (id) => {
     setOpenModal(true)
@@ -26,6 +34,7 @@ const QuoteList = ({ quoteList }) => {
       title={quote.title}
       body={quote.body}
       onDelete={showModal}
+      onClick={handleOpen}
     />
   ))
 
