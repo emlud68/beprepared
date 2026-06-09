@@ -15,7 +15,7 @@ const UserQuote = ({ id, title, body, onDelete, onClick }) => {
       <h2 className="font-semibold text-2xl mb-2 font-serif">{title}</h2>
       <p className="text-base/8 mb-2">{body}</p>
       <TrashIcon
-        onClick={() => onDelete(id)}
+        onClick={(e) => onDelete(e, id)}
         className={clsx(
           'size-6 absolute top-5 right-4',
           isHovered ? 'block cursor-pointer' : 'hidden'

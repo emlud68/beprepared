@@ -29,10 +29,10 @@ const TimerPreference = () => {
     window.electron.ipcRenderer.send('set-timer-preference', inMilliSeconds)
   }
   return (
-    <Field>
-      <Label className="text-sm/6 font-medium text-black">Project status</Label>
-      <Description className="text-sm/6 text-black/50">
-        This will be visible to clients on the project.
+    <Field className="w-[300px]">
+      <Label className="text-md/6 font-medium text-black">Notification Timer</Label>
+      <Description className="text-sm/6 text-black/50 mt-2">
+        Set the timer for getting quote notifications
       </Description>
       <div className="relative">
         <Select
@@ -41,8 +41,8 @@ const TimerPreference = () => {
           value={timerSelected}
           onChange={handleChange}
           className={clsx(
-            'mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 px-3 py-1.5 text-sm/6 text-black',
-            'focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25',
+            'mt-3 block w-full appearance-none rounded-lg border-none bg-mauve-800/8 hover:cursor-pointer px-3 py-1.5 text-sm/6 text-black',
+            'focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-mauve-800/35',
             // Make the text of each option black on Windows
             '*:text-black'
           )}

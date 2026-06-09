@@ -5,17 +5,15 @@ import FilterPreference from '../components/filter-preference/filter-preference.
 const Preferences = () => {
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-20">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-20 mb-20">
         <div className="max-w-[calc(100vh_/_3)]">
           <img src={logo} alt="logo" />
         </div>
-        <h1 className="text-5xl font-sans">Be Prepared</h1>
+        <h1 className="text-3xl sm:text-5xl font-sans">Be Prepared</h1>
       </div>
-      <div className="flex justify-center">
-        <div className="w-1/2">
+      <div>
+        <div className="flex sm:flex-row flex-col items-center sm:justify-center gap-20">
           <TimerPreference />
-        </div>
-        <div className="w-1/2">
           <FilterPreference />
         </div>
       </div>

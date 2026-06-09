@@ -42,13 +42,13 @@ const FilterPreference = () => {
   }
 
   return (
-    <div>
-      <Field className="flex items-center justify-center gap-4">
+    <div className="inline-flex flex-col w-fit">
+      <Field className="inline-flex items-center justify-start gap-4">
         <Label>Mary Quotes</Label>
         <Switch
           checked={maryQuotes}
           onChange={() => handleChange('mary')}
-          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-white"
+          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-mauve-800/70"
         >
           <span
             aria-hidden="true"
@@ -56,12 +56,12 @@ const FilterPreference = () => {
           />
         </Switch>
       </Field>
-      <Field className="flex items-center justify-center gap-4 mt-4">
+      <Field className="inline-flex items-center justify-start gap-4 mt-4">
         <Label>Liturature Quotes</Label>
         <Switch
           checked={literatureQuotes}
           onChange={() => handleChange('literature')}
-          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-white"
+          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-mauve-800/70"
         >
           <span
             aria-hidden="true"
@@ -69,12 +69,12 @@ const FilterPreference = () => {
           />
         </Switch>
       </Field>
-      <Field className="flex items-center justify-center gap-4 mt-4">
+      <Field className="inline-flex items-center justify-start gap-4 mt-4">
         <Label>gospelQuotes</Label>
         <Switch
           checked={gospelQuotes}
           onChange={() => handleChange('gospel')}
-          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-white"
+          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-mauve-800/70"
         >
           <span
             aria-hidden="true"
@@ -82,12 +82,12 @@ const FilterPreference = () => {
           />
         </Switch>
       </Field>
-      <Field className="flex items-center justify-center gap-4 mt-4">
+      <Field className="inline-flex items-center justify-start gap-4 mt-4">
         <Label>Your Quotes</Label>
         <Switch
           checked={yourQuotes}
           onChange={() => handleChange('your')}
-          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-white"
+          className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-mist-900/40 p-1 ease-in-out focus:not-data-focus:outline-none data-checked:bg-blue-800/40 data-focus:outline data-focus:outline-mauve-800/70"
         >
           <span
             aria-hidden="true"

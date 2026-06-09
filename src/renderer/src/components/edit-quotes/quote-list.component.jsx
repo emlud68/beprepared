@@ -17,7 +17,8 @@ const QuoteList = ({ quoteList }) => {
     })
   }
 
-  const showModal = (id) => {
+  const showModal = (e, id) => {
+    e.stopPropagation()
     setOpenModal(true)
     userQuoteId = id
   }
