@@ -69,7 +69,7 @@ function createTray() {
   tray.setContextMenu(
     Menu.buildFromTemplate([
       {
-        label: 'Send Random Notification',
+        label: 'Send Random Quote',
         click: () => {
           const quote = db.getRandomQuote(getFilterPreference())
           sendNotification(quote)

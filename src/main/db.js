@@ -10,7 +10,6 @@ const seedDbPath = app.isPackaged
   : join(__dirname, '../../resources/seed.db') // development
 
 if (!existsSync(userDbPath)) {
-  console.log(seedDbPath, userDbPath)
   copyFileSync(seedDbPath, userDbPath)
 }
 
@@ -19,7 +18,6 @@ const db = new Database(userDbPath)
 db.prepare(
   'CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, body TEXT, tag TEXT)'
 ).run()
-db.pragma('journal_mode = WAL')
 
 const getQuoteFromTag = (tag) => {
   return db.prepare('SELECT * from quote WHERE tag = ?').get(tag)
