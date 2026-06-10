@@ -21,8 +21,6 @@ function EditQuotes() {
     window.electron.ipcRenderer.invoke('new-quote', quote)
   }
 
-  console.log(quoteList)
-
   return (
     <>
       <div className="flex flex-col items-center justify-center">

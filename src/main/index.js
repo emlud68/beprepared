@@ -100,7 +100,7 @@ app.whenReady().then(() => {
     openAsHidden: true // macOS: starts silently
   })
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.beprepared')
+  electronApp.setAppUserModelId('Be Prepared')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -210,9 +210,3 @@ function initiateNotificationScheduler() {
   }
   startNotificationScheduler(timer)
 }
-
-process.on('uncaughtException', (error) => {
-  const { writeFileSync } = require('fs')
-  const { app } = require('electron')
-  writeFileSync(app.getPath('userData') + '/error.log', error.stack)
-})
