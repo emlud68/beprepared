@@ -44,7 +44,7 @@ const FilterPreference = () => {
   return (
     <div className="inline-flex flex-col w-fit">
       <Field className="inline-flex items-center justify-start gap-4">
-        <Label>Mary Quotes</Label>
+        <Label className="select-none">Mary Quotes</Label>
         <Switch
           checked={maryQuotes}
           onChange={() => handleChange('mary')}
@@ -57,7 +57,7 @@ const FilterPreference = () => {
         </Switch>
       </Field>
       <Field className="inline-flex items-center justify-start gap-4 mt-4">
-        <Label>Literature Quotes</Label>
+        <Label className="select-none">Literature Quotes</Label>
         <Switch
           checked={literatureQuotes}
           onChange={() => handleChange('literature')}
@@ -70,7 +70,7 @@ const FilterPreference = () => {
         </Switch>
       </Field>
       <Field className="inline-flex items-center justify-start gap-4 mt-4">
-        <Label>Gospel Quotes</Label>
+        <Label className="select-none">Gospel Quotes</Label>
         <Switch
           checked={gospelQuotes}
           onChange={() => handleChange('gospel')}
@@ -83,7 +83,7 @@ const FilterPreference = () => {
         </Switch>
       </Field>
       <Field className="inline-flex items-center justify-start gap-4 mt-4">
-        <Label>Your Quotes</Label>
+        <Label className="select-none">Your Quotes</Label>
         <Switch
           checked={yourQuotes}
           onChange={() => handleChange('your')}

@@ -14,7 +14,7 @@ const NavbarLink = ({ to }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `p-1 rounded-sm bg-gray-200 text-mauve-700 ${isActive ? 'opacity-70 cursor-default' : 'opacity-100'}`
+        `p-1 rounded-sm bg-gray-200 text-mauve-700 select-none ${isActive ? 'opacity-70 cursor-default' : 'opacity-100'}`
       }
     >
       {header}

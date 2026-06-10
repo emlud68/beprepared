@@ -28,7 +28,7 @@ function EditQuotes() {
       <div className="flex flex-col items-center justify-center">
         <div className="min-w-full mb-8 mt-8 relative">
           <QuoteForm onCreate={handleCreate}></QuoteForm>
-          <h1 className="absolute top-0.5 left-1/2 -translate-x-1/2 text-2xl font-sans">
+          <h1 className="absolute top-0.5 left-1/2 -translate-x-1/2 text-2xl font-sans select-none">
             Your Quotes
           </h1>
         </div>

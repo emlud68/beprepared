@@ -20,3 +20,7 @@
   --font-sans: 'Jost', sans-serif;
   --font-serif: 'Lora', serif;
 }
+
+::selection {
+  background-color: lemonchiffon;
+}

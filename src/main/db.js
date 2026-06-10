@@ -10,7 +10,6 @@ const seedDbPath = app.isPackaged
   : join(__dirname, '../../resources/seed.db') // development
 
 if (!existsSync(userDbPath)) {
-  console.log(true)
   console.log(seedDbPath, userDbPath)
   copyFileSync(seedDbPath, userDbPath)
 }
@@ -31,12 +30,23 @@ const getQuoteFromId = (id) => {
 }
 
 const getAllQuotes = () => {
-  return db.prepare('SELECT * FROM quotes').all()
+  // For now, directly filter queries to user quotes
+  return db.prepare("SELECT * FROM quotes WHERE tag = 'your'").all()
 }
 
-const getRandomQuote = () => {
-  const stmt = db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1')
-  return stmt.get()
+const getRandomQuote = (filterPreference) => {
+  const activeTags = Object.entries(filterPreference)
+    .filter(([_, isActive]) => isActive)
+    .map(([tag]) => tag)
+
+  if (activeTags.length === 0) return null
+
+  const placeholders = activeTags.map(() => '?').join(', ')
+
+  const stmt = db.prepare(
+    `SELECT * FROM quotes WHERE tag IN (${placeholders}) ORDER BY RANDOM() LIMIT 1`
+  )
+  return stmt.get(...activeTags)
 }
 
 const createQuote = (title, body, tag) => {

@@ -14,7 +14,7 @@ const QuoteForm = ({ onCreate }) => {
     <>
       <Button
         onClick={setOpenModal}
-        className="inline-flex w-40 mt-10 sm:mt-0 items-center justify-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer"
+        className="inline-flex w-40 mt-10 sm:mt-0 items-center justify-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer select-none"
       >
         Create new Quote
       </Button>
@@ -25,7 +25,7 @@ const QuoteForm = ({ onCreate }) => {
         contentLabel="New Quote Form"
       >
         <header className="relative">
-          <h1 className="text-3xl font-medium max-w-[10em] text-center ml-auto mr-auto">
+          <h1 className="text-3xl font-medium max-w-[10em] text-center ml-auto mr-auto select-none">
             Create Quote
           </h1>
           <XMarkIcon
@@ -51,7 +51,7 @@ const QuoteForm = ({ onCreate }) => {
         <Field>
           <Label className="text-md/6 font-medium text-black">Quote</Label>
           <Textarea
-            placeholder="Quote"
+            placeholder="Quote..."
             maxLength="2000"
             value={body}
             onChange={(e) => setBody(e.target.value)}
@@ -70,7 +70,7 @@ const QuoteForm = ({ onCreate }) => {
             setBody('')
             setOpenModal(false)
           }}
-          className="inline-flex mt-auto w-40 items-center justify-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer"
+          className="inline-flex mt-auto w-40 items-center justify-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer select-none"
         >
           Create new Quote
         </Button>

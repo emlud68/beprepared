@@ -30,8 +30,8 @@ const TimerPreference = () => {
   }
   return (
     <Field className="w-[300px]">
-      <Label className="text-md/6 font-medium text-black">Notification Timer</Label>
-      <Description className="text-sm/6 text-black/50 mt-2">
+      <Label className="text-md/6 font-medium text-black select-none">Notification Timer</Label>
+      <Description className="text-sm/6 text-black/50 mt-2 select-none">
         Set the timer for getting quote notifications
       </Description>
       <div className="relative">

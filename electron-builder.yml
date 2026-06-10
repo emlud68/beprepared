@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: beprepared
+appId: com.beprepared.app
+productName: BePrepared
 directories:
   buildResources: build
 files:
@@ -10,17 +10,20 @@ files:
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
   - resources/**
+  - node_modules/better-sqlite3/**
 extraResources:
   - from: resources/seed.db
     to: seed.db
 win:
   executableName: beprepared
+  icon: resources/icons/win/icon.ico
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
+  icon: resources/icons/mac/icon.icns
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
@@ -31,6 +34,7 @@ mac:
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
+  icon: resources/icons/png/512x512.png
   target:
     - AppImage
     - snap

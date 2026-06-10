@@ -15,7 +15,6 @@ const QuoteViewer = () => {
 
   const handleGenerate = () => {
     window.electron.ipcRenderer.send('generate-random-quote')
-    console.log('hi')
   }
 
   return (
@@ -34,7 +33,7 @@ const QuoteViewer = () => {
       )}
       <Button
         onClick={handleGenerate}
-        className="mt-10 inline-flex items-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer"
+        className="mt-10 inline-flex items-center gap-2 rounded-md bg-blue-800/60 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-focus:outline data-focus:outline-mauve-800/70 data-hover:bg-blue-800/75 hover:cursor-pointer select-none"
       >
         Generate random Quote
       </Button>

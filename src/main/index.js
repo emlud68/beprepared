@@ -28,6 +28,8 @@ function createWindow() {
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
+    title: 'Be Prepared',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -66,7 +68,13 @@ function createTray() {
   tray.setToolTip('Be Prepared')
   tray.setContextMenu(
     Menu.buildFromTemplate([
-      { label: 'Send Test Notification', click: sendNotification },
+      {
+        label: 'Send Random Notification',
+        click: () => {
+          const quote = db.getRandomQuote(getFilterPreference())
+          sendNotification(quote)
+        }
+      },
       { type: 'separator' },
       {
         label: 'Quit',
@@ -117,7 +125,7 @@ app.whenReady().then(() => {
     return quote
   })
   ipcMain.on('generate-random-quote', () => {
-    const quote = db.getRandomQuote()
+    const quote = db.getRandomQuote(getFilterPreference())
     mainWindow.webContents.send('notification-clicked', quote)
   })
   ipcMain.handle('new-quote', (_, quote) => {
@@ -181,7 +189,7 @@ let interval
 
 function startNotificationScheduler(timer) {
   interval = setInterval(() => {
-    const quote = db.getRandomQuote()
+    const quote = db.getRandomQuote(getFilterPreference())
     mainWindow.webContents.send('notification-clicked', quote)
     sendNotification(quote)
   }, timer)
@@ -202,3 +210,9 @@ function initiateNotificationScheduler() {
   }
   startNotificationScheduler(timer)
 }
+
+process.on('uncaughtException', (error) => {
+  const { writeFileSync } = require('fs')
+  const { app } = require('electron')
+  writeFileSync(app.getPath('userData') + '/error.log', error.stack)
+})
