@@ -1,1 +1,26 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-display: swap;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/jost-v20-latin-regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets//fonts/lora-v37-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@theme {
+  --font-sans: 'Jost', sans-serif;
+  --font-serif: 'Lora', serif;
+}
+
+::selection {
+  background-color: lemonchiffon;
+}

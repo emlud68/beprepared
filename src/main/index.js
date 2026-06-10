@@ -23,9 +23,13 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 400,
+    minHeight: 230,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
+    title: 'Be Prepared',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -46,6 +50,17 @@ function createWindow() {
   })
 }
 
+//Database imports
+import * as db from './db'
+
+//Electron Store imports
+import {
+  setTimerPreference,
+  getTimerPreference,
+  setFilterPreference,
+  getFilterPreference
+} from './user-settings'
+
 function createTray() {
   // Create system tray icon
   tray = new Tray(icon)
@@ -53,7 +68,13 @@ function createTray() {
   tray.setToolTip('Be Prepared')
   tray.setContextMenu(
     Menu.buildFromTemplate([
-      { label: 'Send Test Notification', click: sendNotification },
+      {
+        label: 'Send Random Notification',
+        click: () => {
+          const quote = db.getRandomQuote(getFilterPreference())
+          sendNotification(quote)
+        }
+      },
       { type: 'separator' },
       {
         label: 'Quit',
@@ -79,7 +100,7 @@ app.whenReady().then(() => {
     openAsHidden: true // macOS: starts silently
   })
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.beprepared')
+  electronApp.setAppUserModelId('Be Prepared')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -88,12 +109,53 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test (ignore this)
-  ipcMain.on('ping', () => console.log('pong'))
+  function updateQuotes() {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      const quotes = db.getAllQuotes()
+      mainWindow.webContents.send('update-quotes', quotes)
+    }
+  }
+
+  ipcMain.handle('get-quotes', () => {
+    const quotes = db.getAllQuotes()
+    return quotes
+  })
+  ipcMain.handle('get-quote', (_, id) => {
+    const quote = db.getQuoteFromId(id)
+    return quote
+  })
+  ipcMain.on('generate-random-quote', () => {
+    const quote = db.getRandomQuote(getFilterPreference())
+    mainWindow.webContents.send('notification-clicked', quote)
+  })
+  ipcMain.handle('new-quote', (_, quote) => {
+    if (!quote.title) {
+      mainWindow.webContents.send('error', 'Quote is missing "title"')
+      return
+    } else if (!quote.body) {
+      mainWindow.webContents.send('error', 'Quote is missing "content"')
+      return
+    }
+    db.createQuote(quote.title, quote.body, quote.tag)
+    updateQuotes()
+  })
+  ipcMain.handle('delete-quote', (_, id) => {
+    db.deleteQuote(id)
+    updateQuotes()
+  })
+  ipcMain.on('set-timer-preference', (_, p) => {
+    setTimerPreference(p)
+    initiateNotificationScheduler()
+  })
+  ipcMain.handle('get-timer-preference', getTimerPreference)
+  ipcMain.on('set-filter-preference', (_, c, p) => {
+    setFilterPreference(c, p)
+  })
+  ipcMain.handle('get-filter-preference', getFilterPreference)
 
   createWindow()
   createTray()
-  startNotificationScheduler()
+  initiateNotificationScheduler()
 
   app.on('activate', () => {
     mainWindow.show()
@@ -102,24 +164,49 @@ app.whenReady().then(() => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-import db from './db'
 
 // --
-function sendNotification() {
-  new Notification({
-    title: 'Hello!',
-    body: 'This was sent without opening the app.',
+function sendNotification(quote) {
+  const notification = new Notification({
+    title: quote.title,
+    body: quote.body,
     icon
-  }).show()
+  })
+
+  notification.on('click', () => {
+    if (mainWindow) {
+      mainWindow.show()
+      mainWindow.focus()
+    }
+
+    mainWindow.webContents.send('notification-clicked', quote)
+  })
+
+  notification.show()
 }
 
-function startNotificationScheduler() {
-  // Example: send a notification every 10 seconds
-  setInterval(() => {
-    new Notification({
-      title: 'Scheduled Reminder',
-      body: `It's ${new Date().toLocaleTimeString()}`,
-      icon
-    }).show()
-  }, 10_000)
+let interval
+
+function startNotificationScheduler(timer) {
+  interval = setInterval(() => {
+    const quote = db.getRandomQuote(getFilterPreference())
+    mainWindow.webContents.send('notification-clicked', quote)
+    sendNotification(quote)
+  }, timer)
+}
+
+function stopNotificationScheduler() {
+  clearInterval(interval)
+}
+
+function initiateNotificationScheduler() {
+  if (interval) {
+    stopNotificationScheduler()
+  }
+  let timer = getTimerPreference()
+  if (!timer) {
+    timer = 600000 // in case, default to 10 min
+    setTimerPreference(600000)
+  }
+  startNotificationScheduler(timer)
 }

@@ -4,3 +4,4 @@ allowBuilds:
   electron-winstaller: true
   esbuild: true
   lzma-native: set this to true or false
+  phantomjs-prebuilt: true
