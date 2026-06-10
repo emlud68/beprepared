@@ -35,9 +35,8 @@ const getAllQuotes = () => {
 }
 
 const getRandomQuote = () => {
-  setTimeout(() => {
-    return db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
-  }, 0)
+  const stmt = db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1')
+  return stmt.get()
 }
 
 const createQuote = (title, body, tag) => {

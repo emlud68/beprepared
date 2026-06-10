@@ -15,6 +15,7 @@ const QuoteViewer = () => {
 
   const handleGenerate = () => {
     window.electron.ipcRenderer.send('generate-random-quote')
+    console.log('hi')
   }
 
   return (

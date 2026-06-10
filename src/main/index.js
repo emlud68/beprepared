@@ -121,6 +121,13 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('notification-clicked', quote)
   })
   ipcMain.handle('new-quote', (_, quote) => {
+    if (!quote.title) {
+      mainWindow.webContents.send('error', 'Quote is missing "title"')
+      return
+    } else if (!quote.body) {
+      mainWindow.webContents.send('error', 'Quote is missing "content"')
+      return
+    }
     db.createQuote(quote.title, quote.body, quote.tag)
     updateQuotes()
   })
@@ -174,7 +181,7 @@ let interval
 
 function startNotificationScheduler(timer) {
   interval = setInterval(() => {
-    const quote = db.db.prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get()
+    const quote = db.getRandomQuote()
     mainWindow.webContents.send('notification-clicked', quote)
     sendNotification(quote)
   }, timer)
