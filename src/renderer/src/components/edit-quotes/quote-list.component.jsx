@@ -11,6 +11,7 @@ const QuoteList = ({ quoteList }) => {
   const [openModal, setOpenModal] = useState(false)
 
   let navigate = useNavigate()
+
   const handleOpen = (id) => {
     window.electron.ipcRenderer.invoke('get-quote', id).then((quote) => {
       navigate('/quote', { state: { quote } })
@@ -34,8 +35,8 @@ const QuoteList = ({ quoteList }) => {
       id={quote.id}
       title={quote.title}
       body={quote.body}
-      onDelete={showModal}
-      onClick={handleOpen}
+      handleDelete={showModal}
+      handleClick={handleOpen}
     />
   ))
 

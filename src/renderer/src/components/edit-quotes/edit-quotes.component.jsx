@@ -32,7 +32,7 @@ function EditQuotes() {
         </div>
         <div className="min-w-full">
           {quoteList.length === 0 ? (
-            <h1 className="text-lg mt-10">Try adding your own quotes!</h1>
+            <h1 className="text-lg mt-10">Add your favorite quotes here!</h1>
           ) : (
             <QuoteList quoteList={quoteList}></QuoteList>
           )}

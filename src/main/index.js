@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, Menu, Notification, Tray } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { updateElectronApp } from 'update-electron-app'
 
 let mainWindow
 let tray
@@ -69,7 +70,7 @@ function createTray() {
   tray.setContextMenu(
     Menu.buildFromTemplate([
       {
-        label: 'Send Random Notification',
+        label: 'Send Random Quote',
         click: () => {
           const quote = db.getRandomQuote(getFilterPreference())
           sendNotification(quote)
@@ -95,6 +96,12 @@ function createTray() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  if (!is.dev) {
+    updateElectronApp()
+  }
+
+  db.syncSeedQuotes()
+
   app.setLoginItemSettings({
     openAtLogin: true,
     openAsHidden: true // macOS: starts silently

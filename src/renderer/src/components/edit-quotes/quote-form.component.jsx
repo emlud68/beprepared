@@ -40,6 +40,7 @@ const QuoteForm = ({ onCreate }) => {
             placeholder="Title"
             maxLength="120"
             value={title}
+            autoFocus
             onChange={(e) => setTitle(e.target.value)}
             className={clsx(
               'mt-3 block w-full rounded-lg border-none bg-mauve-800/5 px-3 py-1.5 text-sm/6 text-black',
