@@ -1,6 +1,7 @@
 {
   "name": "beprepared",
   "version": "1.0.0",
+  "repository": "https://github.com/emlud68/beprepared",
   "description": "Get reminded of God's love",
   "main": "./out/main/index.js",
   "author": "example.com",
@@ -29,7 +30,8 @@
     "electron-updater": "^6.3.9",
     "react-modal": "^3.16.3",
     "react-router": "^7.16.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "update-electron-app": "^3.2.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^2.1.0",

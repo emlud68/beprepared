@@ -19,6 +19,53 @@ db.prepare(
   'CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, body TEXT, tag TEXT)'
 ).run()
 
+// Run on every launch after first install
+function syncSeedQuotes() {
+  const currentVersion = app.getVersion()
+
+  // Read what version we last synced
+  db.prepare('CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT)').run()
+
+  const row = db.prepare('SELECT value FROM meta WHERE key = ?').get('lastSyncedVersion')
+  const lastSyncedVersion = row?.value ?? null
+
+  // Skip if we already synced this version
+  if (lastSyncedVersion === currentVersion) return
+
+  // Open seed db and pull all non-'your' quotes
+  const seedDb = new Database(seedDbPath, { readonly: true })
+  const seedQuotes = seedDb
+    .prepare(
+      `
+    SELECT * FROM quotes WHERE tag != 'your'
+  `
+    )
+    .all()
+  seedDb.close()
+
+  // Delete old seeded quotes (non-'your') and replace with new ones
+  db.prepare(`DELETE FROM quotes WHERE tag != 'your'`).run()
+
+  const insert = db.prepare(`
+    INSERT INTO quotes (title, body, tag) VALUES (?, ?, ?)
+  `)
+
+  const insertMany = db.transaction((quotes) => {
+    for (const quote of quotes) {
+      insert.run(quote.title, quote.body, quote.tag)
+    }
+  })
+
+  insertMany(seedQuotes)
+
+  // Remember we synced this version
+  db.prepare(
+    `
+    INSERT OR REPLACE INTO meta (key, value) VALUES ('lastSyncedVersion', ?)
+  `
+  ).run(currentVersion)
+}
+
 const getQuoteFromTag = (tag) => {
   return db.prepare('SELECT * from quote WHERE tag = ?').get(tag)
 }
@@ -62,5 +109,6 @@ export {
   createQuote,
   getAllQuotes,
   deleteQuote,
-  getRandomQuote
+  getRandomQuote,
+  syncSeedQuotes
 }
