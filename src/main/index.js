@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, Menu, Notification, Tray } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { updateElectronApp } from 'update-electron-app'
+import { autoUpdater } from 'electron-updater'
 
 let mainWindow
 let tray
@@ -97,7 +97,7 @@ function createTray() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   if (!is.dev) {
-    updateElectronApp()
+    autoUpdater.checkForUpdatesAndNotify()
   }
 
   db.syncSeedQuotes()
