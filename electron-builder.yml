@@ -18,6 +18,7 @@ win:
   executableName: beprepared
   icon: resources/icons/win/icon.ico
 nsis:
+  artifactName: ${name}-${version}-setup.${ext}
   shortcutName: Be Prepared
   uninstallDisplayName: Be Prepared
   createDesktopShortcut: always
