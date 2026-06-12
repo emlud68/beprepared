@@ -1,3 +1,5 @@
+import started from 'electron-squirrel-startup'
+if (started) app.quit()
 import { app, BrowserWindow, ipcMain, Menu, Notification, Tray } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'

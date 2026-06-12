@@ -17,11 +17,9 @@ extraResources:
 win:
   executableName: beprepared
   icon: resources/icons/win/icon.ico
-nsis:
-  artifactName: ${name}-${version}-windows.${ext}
-  shortcutName: ${productName}
-  uninstallDisplayName: ${productName}
-  createDesktopShortcut: always
+  target: squirrel
+squirrel:
+  shortcutName: Be Prepared
 mac:
   icon: resources/icons/mac/icon.icns
   entitlementsInherit: build/entitlements.mac.plist
