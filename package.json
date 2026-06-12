@@ -1,11 +1,11 @@
 {
   "name": "beprepared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/emlud68/beprepared",
   "description": "Get reminded of God's love",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "https://github.com/emlud68",
+  "homepage": "https://emlud68.github.io/beprepared.app/",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
